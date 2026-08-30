@@ -1,0 +1,187 @@
+{
+  "status": "INDEPENDENT_AUDIT_PASS_CORANK2_GLOBAL",
+  "symbolic_probability_identity": {
+    "k_max": 150,
+    "missing_size_max": 150,
+    "exact_cases": 22350,
+    "minimum_positive_cross_multiplication_gap": 2
+  },
+  "independent_bitmask_grid": {
+    "rows": [
+      {
+        "m": 3,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 329,
+        "lexicographic_maximizers": 432,
+        "committee_target_checks": 2592
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 1364,
+        "lexicographic_maximizers": 2256,
+        "committee_target_checks": 22560
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 1364,
+        "lexicographic_maximizers": 1848,
+        "committee_target_checks": 25872
+      },
+      {
+        "m": 5,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "lexicographic_maximizers": 10290,
+        "committee_target_checks": 154350
+      },
+      {
+        "m": 5,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "lexicographic_maximizers": 8780,
+        "committee_target_checks": 219500
+      },
+      {
+        "m": 5,
+        "k": 4,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "lexicographic_maximizers": 6875,
+        "committee_target_checks": 206250
+      },
+      {
+        "m": 6,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "lexicographic_maximizers": 39525,
+        "committee_target_checks": 830025
+      },
+      {
+        "m": 6,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "lexicographic_maximizers": 38860,
+        "committee_target_checks": 1593260
+      },
+      {
+        "m": 6,
+        "k": 4,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "lexicographic_maximizers": 29115,
+        "committee_target_checks": 1630440
+      },
+      {
+        "m": 6,
+        "k": 5,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "lexicographic_maximizers": 22224,
+        "committee_target_checks": 1377888
+      },
+      {
+        "m": 7,
+        "k": 2,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "lexicographic_maximizers": 20958,
+        "committee_target_checks": 586824
+      },
+      {
+        "m": 7,
+        "k": 3,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "lexicographic_maximizers": 18060,
+        "committee_target_checks": 1137780
+      },
+      {
+        "m": 7,
+        "k": 4,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "lexicographic_maximizers": 16555,
+        "committee_target_checks": 1622390
+      },
+      {
+        "m": 7,
+        "k": 5,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "lexicographic_maximizers": 12789,
+        "committee_target_checks": 1521891
+      },
+      {
+        "m": 7,
+        "k": 6,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "lexicographic_maximizers": 8666,
+        "committee_target_checks": 1091916
+      },
+      {
+        "m": 8,
+        "k": 2,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 7700,
+        "committee_target_checks": 277200
+      },
+      {
+        "m": 8,
+        "k": 3,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 8512,
+        "committee_target_checks": 783104
+      },
+      {
+        "m": 8,
+        "k": 4,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 5390,
+        "committee_target_checks": 873180
+      },
+      {
+        "m": 8,
+        "k": 5,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 2800,
+        "committee_target_checks": 610400
+      },
+      {
+        "m": 8,
+        "k": 6,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 2072,
+        "committee_target_checks": 509712
+      },
+      {
+        "m": 8,
+        "k": 7,
+        "n_max": 2,
+        "anonymous_profiles": 740,
+        "lexicographic_maximizers": 1664,
+        "committee_target_checks": 422656
+      }
+    ],
+    "totals": {
+      "profile_parameter_cases": 106620,
+      "lexicographic_maximizers": 265371,
+      "committee_target_checks": 15499790
+    }
+  },
+  "logical_scope": "The exact algebra proves every m>k>=2; the finite bitmask grid is an independent bounded regression check."
+}

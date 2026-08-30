@@ -1,0 +1,129 @@
+{
+  "theorem": "For every m>k>=2, if every voter disapproves at most two candidates, every lexicographic (edge coverage, incidence) maximizing missing set B yields a Hare-core committee C\\B.",
+  "probability_inequality_audit": {
+    "k_max": 100,
+    "missing_size_max": 100,
+    "exact_cases": 9900
+  },
+  "exhaustive_grid": {
+    "rows": [
+      {
+        "m": 4,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 1364,
+        "maximizing_committees": 2256,
+        "committee_target_checks": 22560
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 1364,
+        "maximizing_committees": 1848,
+        "committee_target_checks": 25872
+      },
+      {
+        "m": 5,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "maximizing_committees": 10290,
+        "committee_target_checks": 154350
+      },
+      {
+        "m": 5,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "maximizing_committees": 8780,
+        "committee_target_checks": 219500
+      },
+      {
+        "m": 5,
+        "k": 4,
+        "n_max": 4,
+        "anonymous_profiles": 4844,
+        "maximizing_committees": 6875,
+        "committee_target_checks": 206250
+      },
+      {
+        "m": 6,
+        "k": 2,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "maximizing_committees": 39525,
+        "committee_target_checks": 830025
+      },
+      {
+        "m": 6,
+        "k": 3,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "maximizing_committees": 38860,
+        "committee_target_checks": 1593260
+      },
+      {
+        "m": 6,
+        "k": 4,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "maximizing_committees": 29115,
+        "committee_target_checks": 1630440
+      },
+      {
+        "m": 6,
+        "k": 5,
+        "n_max": 4,
+        "anonymous_profiles": 14949,
+        "maximizing_committees": 22224,
+        "committee_target_checks": 1377888
+      },
+      {
+        "m": 7,
+        "k": 2,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "maximizing_committees": 20958,
+        "committee_target_checks": 586824
+      },
+      {
+        "m": 7,
+        "k": 3,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "maximizing_committees": 18060,
+        "committee_target_checks": 1137780
+      },
+      {
+        "m": 7,
+        "k": 4,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "maximizing_committees": 16555,
+        "committee_target_checks": 1622390
+      },
+      {
+        "m": 7,
+        "k": 5,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "maximizing_committees": 12789,
+        "committee_target_checks": 1521891
+      },
+      {
+        "m": 7,
+        "k": 6,
+        "n_max": 3,
+        "anonymous_profiles": 4959,
+        "maximizing_committees": 8666,
+        "committee_target_checks": 1091916
+      }
+    ],
+    "totals": {
+      "profile_parameter_cases": 101851,
+      "maximizing_committees": 236801,
+      "committee_target_checks": 12020946
+    }
+  }
+}

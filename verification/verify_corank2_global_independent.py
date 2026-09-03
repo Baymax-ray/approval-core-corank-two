@@ -14,6 +14,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 
+if not __debug__:
+    raise RuntimeError(
+        "Python assertions are disabled; rerun without -O and unset PYTHONOPTIMIZE."
+    )
+
 
 def masks_of_size(m: int, size: int) -> tuple[int, ...]:
     return tuple(sum(1 << candidate for candidate in raw) for raw in itertools.combinations(range(m), size))

@@ -1,36 +1,60 @@
 \pdfinfoomitdate=1
 \pdfsuppressptexinfo=-1
+\input{glyphtounicode}
+\pdfgentounicode=1
+\ifdefined\pdfinterwordspaceon
+  \pdfinterwordspaceon
+\fi
 \documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Sparse Disapproval Guarantees a Nonempty Hare Core},
+  pdfauthor={Jiarui Fang},
+  pdfsubject={Hare-core existence under at most two disapprovals per voter},
+  pdfkeywords={approval voting, committee core, Hare quota, sparse disapproval, co-rank-two},
+  pdfinfo={
+    Affiliation={Boston University},
+    ContactEmail={baymin@bu.edu},
+    ORCID={0009-0006-9100-0445}
+  }
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{remark}[theorem]{Remark}
 \newcommand{\N}{\mathcal N}
 \newcommand{\C}{\mathcal C}
 \title{Sparse Disapproval Guarantees a Nonempty Hare Core}
-\author{Jiarui Fang}
-\date{August 2026}
+\author{Jiarui Fang\\
+\small Boston University\\
+\small \href{mailto:baymin@bu.edu}{\texttt{baymin@bu.edu}}\\
+\small \href{https://orcid.org/0009-0006-9100-0445}{ORCID: 0009-0006-9100-0445}}
+\date{September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Whether every approval-based committee election admits a deterministic
-committee in the Hare core remains open.  We prove nonemptiness on the full
-co-rank-two domain: every voter may disapprove at most two candidates, while
-the numbers of candidates, seats, and voter types are otherwise unrestricted.
-The proof gives an explicit selection rule.  Among all missing sets of the
-required size, first maximize the weight of two-disapproval voters whose
-disapproval pair is hit, and then maximize total disapproval incidence.  A
-random-set inequality rules out targets one seat below the committee, while
-the secondary tie-break rules out unanimous equal-size targets.  Smaller
-targets cannot improve any voter.  Two independent exact implementations
-enumerate every target for more than two hundred thousand maximizing
-committees on complementary finite grids.  These computations audit, but are
-not needed for, the unbounded symbolic theorem.
+An approval committee is Hare-core stable if no coalition meeting the Hare
+quota can strictly improve by moving to another candidate set.  Whether every
+approval election has such a committee remains open.  We prove nonemptiness
+when each voter disapproves at most two candidates, with no bounds on the
+numbers of candidates, seats, or voter types.  The result also permits
+arbitrary positive rational voter weights.  Our deterministic rule represents
+a committee by its missing set.  It first maximizes weighted coverage of
+two-candidate disapproval sets and then maximizes total disapproval incidence.
+An exact coverage inequality excludes targets one seat below the committee.
+The incidence objective excludes unanimous equal-size targets, while targets
+of size at most $k-2$ cannot improve any voter.  Two implementation-level
+independent verifiers audit overlapping finite grids.  The symbolic proof,
+not this bounded
+enumeration, establishes the theorem's unbounded quantifiers.  The argument
+identifies complement-side coverage as a tractable mechanism for a broad
+parameter range within a sharply defined preference domain.
 \end{abstract}
 
 \section{Introduction}
@@ -44,27 +68,37 @@ Hare quota when
   \tag{1}
 \]
 where the positive rational voter weights sum to one.  A committee is in the
-Hare core if it has no blocker.
+Hare core if it has no blocker.  Targets may overlap the committee.  For
+example, when $k=3$, a singleton target reaches its Hare quota at one third
+of the total voter weight.  If all those voters strictly gain, it blocks;
+equality at the quota already permits blocking.
 
 The core was introduced as a strong proportional-representation requirement
 for approval committees by Aziz et al.~\cite{aziz2017}.  General deterministic
-nonemptiness is open.  The current parameter frontiers include $k\le8$ and
-$m\le15$~\cite{peters2025}, and at most seven weighted voter
-types~\cite{becker2026}.  Other positive results impose interval or related
-preference structure~\cite{pierczynski2022}.  Berker et al.~\cite{berker2026}
-give an exact mixed-integer/duality framework and additional special cases.
+nonemptiness is open.  The publicly available results verified for this comparison
+establish nonemptiness for $k\le8$ or $m\le15$~\cite{peters2025}, and for at
+most seven weighted voter types~\cite{becker2026}.  Other positive results
+impose interval or related preference structure~\cite{pierczynski2022}.
+Approval-based apportionment guarantees core stability on a multi-copy party
+domain~\cite{brill2024}.  That model constrains how candidates are grouped,
+rather than how many candidates each voter disapproves.  Berker et
+al.~\cite{berker2026} give an exact mixed-integer and duality framework with
+additional special cases.
 
-Our restriction is orthogonal to these bounds.  Write
+Our restriction is different from these parameter and structural bounds.
+Write
 \[
   H_i=C\setminus A_i
 \]
-for voter $i$'s disapproval set.  We assume only $|H_i|\le2$.  Thus the
-number of voter types may grow without bound, and the result applies in the
-open parameter range, for example at $(m,k)=(17,9)$ when every voter approves
-at least fifteen candidates.  A targeted primary-source audit using
-``bounded disapproval,'' ``two-veto,'' ``dense approvals,'' and
-``complement rank'' terminology found no equivalent theorem; the novelty
-conclusion is necessarily bounded and is not a claim of absolute priority.
+for voter $i$'s disapproval set, and assume only $|H_i|\le2$.  This is a
+dense-approval or near-consensus regime, but our motivation is structural
+rather than empirical.  Each disapproval set is an empty set, a vertex, or
+an edge.  Selecting a missing candidate set therefore becomes a weighted
+vertex-edge coverage problem.  This complement-side representation permits
+arbitrary $m$, $k$, and numbers of voter types.  A targeted primary-source
+audit used ``bounded disapproval,'' ``two-veto,'' ``dense approvals,'' and
+``complement rank'' terminology.  It found no equivalent theorem, so we
+describe the result only as apparently new after a targeted audit.
 
 \section{Selection rule and main theorem}
 
@@ -77,22 +111,28 @@ set $B=C\setminus W$, where $|B|=s$.  Define
  j(B)=\sum_i w_i|H_i\cap B|.
  \tag{2}
 \]
-Choose a size-$s$ set $B$ lexicographically maximizing $(e(B),j(B))$ and
-return $W=C\setminus B$.
+Fix a total order on $C$.  Choose a size-$s$ set $B$ lexicographically
+maximizing $(e(B),j(B))$.  If several sets remain, choose the first under the
+induced lexicographic order on size-$s$ subsets, and return $W=C\setminus B$.
 
 \begin{theorem}[Co-rank-two core theorem]\label{thm:main}
 For every $m\ge k\ge2$, every approval election in which $|C\setminus
 A_i|\le2$ for every positive-weight voter has a nonempty Hare core.  When
-$m>k$, every committee selected by rule~(2) is in the core.
+$m>k$, every committee associated with an $(e,j)$-maximizing missing set is
+in the core; in particular, the fixed tie-break returns a core committee.
 \end{theorem}
 
-The rule is explicit and finite.  We do not claim a polynomial-time
-implementation; exhaustive evaluation over all $\binom ms$ missing sets is
-sufficient for the mathematical statement and the supplied verifier.
+The rule is single-valued, explicit, and finite once the candidate order is
+fixed.  We do not claim a polynomial-time
+implementation; exhaustive evaluation over all $\binom ms$ missing sets
+establishes the mathematical selection rule and is the method used by the
+supplied verifier.
 
 \section{Proof}
 
-Let $T$ be a nonempty target of size $t\le k$.  Write $T=C\setminus D$ and
+A target of size $t>k$ cannot block because its quota $t/k$ exceeds the
+total voter weight one.  We may therefore restrict attention to a nonempty
+target $T$ of size $t\le k$.  Write $T=C\setminus D$ and
 $d=k-t$.  Then $|D|=s+d$.  Direct cancellation gives, for every voter,
 \[
  |A_i\cap T|-|A_i\cap W|
@@ -100,12 +140,12 @@ $d=k-t$.  Then $|D|=s+d$.  Direct cancellation gives, for every voter,
  \tag{3}
 \]
 
-\subsection{Targets of size at most $k-2$}
+\subsection{Targets of size at most \texorpdfstring{$k-2$}{k-2}}
 
 If $d\ge2$, the right side of (3) is at most $-d+|H_i|\le0$.  No voter
 strictly gains, so such a target cannot block.
 
-\subsection{Targets of size $k-1$}
+\subsection{Targets of size \texorpdfstring{$k-1$}{k-1}}
 
 Now $d=1$.  Strict gain in (3) requires
 \[
@@ -141,7 +181,7 @@ size-$(k-1)$ target has gainer weight at most
 \]
 This is strictly below its Hare quota.
 
-\subsection{Targets of size $k$}
+\subsection{Targets of size \texorpdfstring{$k$}{k}}
 
 Here $d=0$, so blocking requires every positive-weight voter to gain.  Suppose
 that happened for some other size-$s$ missing set $D$.  Equation (3) yields
@@ -152,58 +192,62 @@ that happened for some other size-$s$ missing set $D$.  Equation (3) yields
 An empty $H_i$ makes (5) impossible.  For each two-disapproval voter, (5)
 implies that every pair hit by $B$ is also hit by $D$, and every pair missed
 by $B$ is hit by $D$.  Therefore $e(D)\ge e(B)$.  Strict inequality
-contradicts the first lexicographic objective.  If equality holds, summing
-(5) over all voters gives $j(D)>j(B)$, contradicting the tie-break.  Thus no
-size-$k$ target blocks.  Together with the two preceding cases this proves
-Theorem~\ref{thm:main}.
+contradicts the first lexicographic objective.  If equality holds, multiply
+(5) by the positive weight $w_i$ and sum over all voters.  This gives
+$j(D)>j(B)$, contradicting the tie-break.  Thus no size-$k$ target blocks.
+Together with the two preceding cases this proves Theorem~\ref{thm:main}.
 
 \section{Exact verification}
 
-The primary verifier represents disapproval types by immutable sets and
-anonymous count vectors.  On its sealed grid it checks 101,851
-profile--parameter cases, 236,801 tied lexicographic maximizers, and
-12,020,946 literal committee--target inequalities.  The independent verifier
-uses bitmasks and a separate enumeration architecture; it checks 106,620
-cases, 265,371 maximizers, and 15,499,790 literal inequalities, including the
-boundary $(m,k)=(3,2)$.  Both construct every tied maximizer, not merely one.
+The primary set-based verifier represents each anonymous profile as a tuple
+of immutable disapproval sets.  For $m=4,5,6$, it tests every $2\le k<m$ and
+every profile with total integer multiplicity at most four.  For $m=7$, the
+multiplicity bound is three.  This grid contains 14 $(m,k)$ rows and checks
+101,851 profile--parameter cases, 236,801 tied maximizers, and 12,020,946
+literal committee--target inequalities.
 
-All arithmetic is integral after clearing rational voter denominators.  The
-finite grids are regression evidence.  Lemma~\ref{lem:prob} and the proof
-above establish the unbounded quantifiers.
+The implementation-level independent verifier uses bitmasks, weighted
+type-count vectors, and a separate enumeration architecture.  It repeats the
+same 14 rows.  It also adds $(m,k)=(3,2)$ with multiplicity at most four and
+all $2\le k<8$ at $m=8$ with multiplicity at most two.  It checks 106,620
+profile--parameter cases, 265,371 tied maximizers, and 15,499,790 literal
+inequalities.  Both implementations construct every tied maximizer, not
+merely one.
+
+All verifier arithmetic is integral, and both scripts refuse to run when
+Python assertions are disabled.  The grids enumerate only the stated small
+integer multiplicities.  They do not exhaust arbitrary denominators of
+rational weights.  Lemma~\ref{lem:prob} and the symbolic proof establish
+those unbounded quantifiers; the overlapping grids provide regression and
+falsification evidence only.
 
 \section{Scope and open boundary}
 
 The theorem permits arbitrary positive rational weights, repeated ballots,
 unapproved candidates, and targets overlapping the committee.  Equality in
 the Hare quota counts as blocking throughout.  The theorem does not cover a
-voter disapproving three candidates, does not resolve co-rank three, and does
-not imply unrestricted core nonemptiness.  The natural next question is
-whether a higher-order coverage objective can control deficit-one targets
-without losing the equal-size tie-break; the present averaging proof alone
-does not supply such an extension.
+voter disapproving three candidates, does not resolve co-rank-three, and does
+not imply unrestricted core nonemptiness.  Its contribution is a specialist
+restricted-domain theorem, not evidence that dense approvals are empirically
+universal.  The complement-side coverage and tie-break mechanism explains
+why co-rank-two is tractable.  Whether a higher-order objective can control
+deficit-one targets without losing the equal-size tie-break remains open.
+The present averaging proof alone does not supply such an extension.
 
 \section*{Reproducibility and AI assistance}
 
-The package README gives a one-command exact replay and PDF build.  Generative
-AI systems were used during proof exploration, verifier development,
+The package README gives a one-command exact replay and PDF build.  GPT-5.6 Sol
+was used during proof exploration, verifier development,
 literature-query formulation, and manuscript preparation.  The author
 reviewed the statements, proofs, citations, and executable artifacts and
 takes responsibility for the content.
 
+\section*{Code availability}
+
+The verification code and reproducibility materials are available from the
+\url{https://github.com/Baymax-ray/approval-core-corank-two}.
+
 \small
-\begin{thebibliography}{9}
-\bibitem{aziz2017} H.~Aziz, M.~Brill, V.~Conitzer, E.~Elkind, R.~Freeman,
-and T.~Walsh, ``Justified Representation in Approval-Based Committee
-Voting,'' \emph{Social Choice and Welfare} 48 (2017), 461--485.
-\bibitem{peters2025} D.~Peters, ``The Core of Approval-Based Committee
-Elections with Few Seats,'' \emph{IJCAI 2025}, 4014--4022.
-\bibitem{becker2026} P.~Becker, M.~Greger, and D.~Peters, ``Core Existence
-in Approval-Based Committee Elections with up to Seven Voter Types,''
-arXiv:2605.06194v2, 2026.
-\bibitem{berker2026} R.~E.~Berker, E.~Tewolde, V.~Conitzer, M.~Guo,
-M.~Heule, and L.~Xia, ``On the Edge of Core (Non-)Emptiness,''
-\emph{AAAI} 40(20) (2026), 16673--16681.
-\bibitem{pierczynski2022} G.~Pierczy\'nski and P.~Skowron, ``Core-Stable
-Committees under Restricted Domains,'' \emph{WINE 2022}, 311--329.
-\end{thebibliography}
+\bibliographystyle{unsrt}
+\bibliography{references}
 \end{document}

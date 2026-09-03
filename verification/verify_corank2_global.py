@@ -1,9 +1,9 @@
-"""Independent exact audit of the global co-rank-two Hare-core theorem.
+"""Primary set-based exact audit of the global co-rank-two Hare-core theorem.
 
 The finite audit enumerates anonymous profiles, checks every lexicographic
-maximizing missing set, and tests every nonempty target by the literal
-integral Hare inequality.  It does not assume that only the top two target
-sizes matter.
+maximizing missing set, and tests every nonempty target of size at most k by
+the literal integral Hare inequality.  Larger targets cannot block because
+their Hare quota exceeds the total voter weight.
 """
 
 from __future__ import annotations
@@ -14,6 +14,11 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
+
+if not __debug__:
+    raise RuntimeError(
+        "Python assertions are disabled; rerun without -O and unset PYTHONOPTIMIZE."
+    )
 
 
 def subsets(candidates: tuple[int, ...], size: int):

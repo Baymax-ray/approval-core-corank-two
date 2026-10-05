@@ -2,6 +2,20 @@
 
 [![Code license: MIT](https://img.shields.io/badge/code%20license-MIT-yellow.svg)](LICENSE)
 
+Paper: Jiarui Fang, *Sparse Disapproval Guarantees a Nonempty Hare Core*,
+[arXiv:2609.04537](https://arxiv.org/abs/2609.04537).
+
+## Status
+
+The general Hare-core existence problem has since been solved by Patrick
+Becker, Matthias Greger, and Dominik Peters in *Existence of the Core in
+Approval-Based Committee Elections*,
+[arXiv:2609.11912](https://arxiv.org/abs/2609.11912).
+Their result establishes core existence for arbitrary approval elections and
+committee sizes, and therefore subsumes this package's sparse-disapproval
+existence theorem. This package is retained as an archive of the restricted
+proof, its explicit selection rule, and its exact verification artifacts.
+
 This self-contained package proves that every approval election in which each
 voter disapproves at most two candidates has a nonempty deterministic Hare
 core, for every `m >= k >= 2` and arbitrary positive rational voter weights.
